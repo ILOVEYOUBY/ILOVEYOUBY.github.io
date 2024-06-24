@@ -16,7 +16,7 @@
             text-align: center;
             margin: 0;
         }
-        #nameInputContainer, #messageContainer, #requestContainer, #container {
+        .container {
             display: none;
             flex-direction: column;
             align-items: center;
@@ -25,7 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        #nameInputContainer.active, #messageContainer.active, #requestContainer.active, #container.active {
+        .container.active {
             display: flex;
         }
         h1 {
@@ -61,7 +61,7 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         (function(){
-            emailjs.init('2bEa4ebDWcR-VxHH2D'); // Ganti 'YOUR_USER_ID' dengan User ID EmailJS Anda
+            emailjs.init('2bEa4ebDWcR-VxHH2'); // Ganti 'YOUR_USER_ID' dengan User ID EmailJS Anda
         })();
 
         let currentSlide = 0;
@@ -84,6 +84,7 @@
                 document.getElementById('userName').textContent = name;
                 document.getElementById('nameInputContainer').classList.remove('active');
                 document.getElementById('messageContainer').classList.add('active');
+                document.getElementById('message').textContent = messages[currentSlide];
             }
         }
 
@@ -92,7 +93,6 @@
             if (currentSlide < messages.length) {
                 document.getElementById('message').textContent = messages[currentSlide];
             } else {
-                document.getElementById('message').textContent = messages[0];
                 document.getElementById('messageContainer').classList.remove('active');
                 document.getElementById('requestContainer').classList.add('active');
             }
@@ -114,7 +114,7 @@
                     console.log('FAILED...', error);
                 });
             } else {
-                console.log('Sebutkan permintaan mu.');
+                console.log('Sebutkan permintaanmu.');
             }
         }
 
@@ -122,33 +122,32 @@
             document.getElementById('requestContainer').classList.remove('active');
             document.getElementById('container').classList.add('active');
             document.getElementById('greeting').textContent = `Hi ${name} cantik`;
-            document.getElementById('message').textContent = messages[currentSlide];    
         }
     </script>
 </head>
 <body>
 
-<div id="nameInputContainer" class="active">
+<div id="nameInputContainer" class="container active">
     <h1>Welcome, My Love!</h1>
     <p>Please enter your name:</p>
     <input type="text" id="nameInput" placeholder="Your Name">
     <button onclick="saveName()">Submit</button>
 </div>
 
-<div id="messageContainer">
+<div id="messageContainer" class="container">
     <h1>Hi <span id="userName"></span> cantik</h1>
     <p>Here's a message for you:</p>
     <div id="message"></div>
     <button onclick="nextSlide()">Next</button>
 </div>
 
-<div id="requestContainer">
+<div id="requestContainer" class="container">
     <h1>Write your request, <span id="userName"></span>:</h1>
     <textarea id="requestInput" rows="4" placeholder="Sebutkan permintaanmu :"></textarea>
     <button onclick="sendRequest()">Send</button>
 </div>
 
-<div id="container">
+<div id="container" class="container">
     <h1 id="greeting"></h1>
     <p>Thank you for your request!</p>
 </div>
