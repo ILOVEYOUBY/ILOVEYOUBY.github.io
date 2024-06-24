@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Website for My Love</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            text-align: center;
+            margin: 0;
+        }
+        #nameInputContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80%;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #e55a4f;
+        }
+    </style>
+</head>
+<body>
+
+<div id="nameInputContainer">
+    <h1>Welcome, My Love!</h1>
+    <p>Please enter your name:</p>
+    <input type="text" id="nameInput" placeholder="Your Name">
+    <button onclick="saveName()">Submit</button>
+</div>
+
+<div id="container">
+    <h1 id="greeting"></h1>
+    <p id="message"></p>
+    <button onclick="nextSlide()">Next</button>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const messages = [
+        "Maafin semua kesalahan wa ya, wa bakal jadi lebih baik buat le!",
+        "Wa selalu bakal sayang sama le. Apapun masalah nya nanti dan kedepan nya w bakal selalu ada buat le.",
+        "Le adalah alasan kenapa wa senyum dan hepi tiap hari.",
+        "Wa bakal selalu ada buat le sampai kita tua nanti nya.",
+        "Jika semua orang nanti gad yang percaya dan ngerti kondisi le, wa pasti bakal percaya dan berusaha untuk ngertiin perasaan le.",
+        "Thank you dah datang di hidup w ya byy.",
+        "Wa akan selalu setia dan berusaha jadi yang terbaik buat le.",
+        "Ketika le sedih, wa bakal jadi badut buat hibur le.",
+        "Wa bersyukur tiap hari karena le ada di hidup wa.",
+        "Wa sayang bangett ama le byy!! LOVE YOU:))."
+    ];
+
+    function saveName() {
+        const name = document.getElementById('nameInput').value;
+        if (name) {
+            showGreeting(name);
+        }
+    }
+
+    function showGreeting(name) {
+        document.getElementById('nameInputContainer').style.display = 'none';
+        document.getElementById('container').style.display = 'flex';
+        document.getElementById('greeting').textContent = `Hi ${name} cantik`;
+        document.getElementById('message').textContent = messages[currentSlide];
+    }
+
+    function nextSlide() {
+        currentSlide++;
+        if (currentSlide < messages.length) {
+            document.getElementById('message').textContent = messages[currentSlide];
+        } else {
+            currentSlide = 0;
+            document.getElementById('message').textContent = messages[currentSlide];
+        }
+    }
+</script>
+
+</body>
+</html>
