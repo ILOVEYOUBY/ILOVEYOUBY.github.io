@@ -16,7 +16,7 @@
             text-align: center;
             margin: 0;
         }
-        #nameInputContainer, #requestContainer, #container {
+        #nameInputContainer, #messageContainer, #requestContainer, #container {
             display: none;
             flex-direction: column;
             align-items: center;
@@ -25,7 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        #nameInputContainer.active, #requestContainer.active, #container.active {
+        #nameInputContainer.active, #messageContainer.active, #requestContainer.active, #container.active {
             display: flex;
         }
         h1 {
@@ -61,8 +61,69 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         (function(){
-            emailjs.init('2bEa4ebDWcR-VxHH2'); // Ganti 'YOUR_USER_ID' dengan User ID EmailJS Anda
+            emailjs.init('YOUR_USER_ID'); // Ganti 'YOUR_USER_ID' dengan User ID EmailJS Anda
         })();
+
+        let currentSlide = 0;
+        const messages = [
+            "Maafin semua kesalahan wa ya, wa bakal jadi lebih baik buat le!",
+            "Wa selalu bakal sayang sama le. Apapun masalah nya nanti dan kedepan nya w bakal selalu ada buat le.",
+            "Le adalah alasan kenapa wa senyum dan hepi tiap hari.",
+            "Wa bakal selalu ada buat le sampai kita tua nanti nya.",
+            "Jika semua orang nanti gad yang percaya dan ngerti kondisi le, wa pasti bakal percaya dan berusaha untuk ngertiin perasaan le.",
+            "Thank you dah datang di hidup w ya byy.",
+            "Wa akan selalu setia dan berusaha jadi yang terbaik buat le.",
+            "Ketika le sedih, wa bakal jadi badut buat hibur le.",
+            "Wa bersyukur tiap hari karena le ada di hidup wa.",
+            "Wa sayang bangett ama le byy!! LOVE YOU:))."
+        ];
+
+        function saveName() {
+            const name = document.getElementById('nameInput').value;
+            if (name) {
+                document.getElementById('userName').textContent = name;
+                document.getElementById('nameInputContainer').classList.remove('active');
+                document.getElementById('messageContainer').classList.add('active');
+            }
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            if (currentSlide < messages.length) {
+                document.getElementById('message').textContent = messages[currentSlide];
+            } else {
+                document.getElementById('message').textContent = messages[0];
+                document.getElementById('messageContainer').classList.remove('active');
+                document.getElementById('requestContainer').classList.add('active');
+            }
+        }
+
+        function sendRequest() {
+            const name = document.getElementById('userName').textContent;
+            const request = document.getElementById('requestInput').value;
+
+            if (request) {
+                emailjs.send('service_xf4hn5d', 'iloveyouby', {
+                    from_name: name,
+                    message: request,
+                    to_email: 'kevin.theo25@gmail.com'
+                }).then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showGreeting(name);
+                }).catch(function(error) {
+                    console.log('FAILED...', error);
+                });
+            } else {
+                console.log('Sebutkan permintaan mu.');
+            }
+        }
+
+        function showGreeting(name) {
+            document.getElementById('requestContainer').classList.remove('active');
+            document.getElementById('container').classList.add('active');
+            document.getElementById('greeting').textContent = `Hi ${name} cantik`;
+            document.getElementById('message').textContent = messages[currentSlide];
+        }
     </script>
 </head>
 <body>
@@ -74,80 +135,23 @@
     <button onclick="saveName()">Submit</button>
 </div>
 
-<div id="requestContainer">
+<div id="messageContainer">
     <h1>Hi <span id="userName"></span> cantik</h1>
-    <p>Write your request:</p>
-    <textarea id="requestInput" rows="4" placeholder="Your request"></textarea>
+    <p>Here's a message for you:</p>
+    <div id="message"></div>
+    <button onclick="nextSlide()">Next</button>
+</div>
+
+<div id="requestContainer">
+    <h1>Write your request, <span id="userName"></span>:</h1>
+    <textarea id="requestInput" rows="4" placeholder="Sebutkan permintaanmu :"></textarea>
     <button onclick="sendRequest()">Send</button>
 </div>
 
 <div id="container">
     <h1 id="greeting"></h1>
-    <p id="message"></p>
-    <button onclick="nextSlide()">Next</button>
+    <p>Thank you for your request!</p>
 </div>
-
-<script>
-    let currentSlide = 0;
-    const messages = [
-        "Maafin semua kesalahan wa ya, wa bakal jadi lebih baik buat le!",
-        "Wa selalu bakal sayang sama le. Apapun masalah nya nanti dan kedepan nya w bakal selalu ada buat le.",
-        "Le adalah alasan kenapa wa senyum dan hepi tiap hari.",
-        "Wa bakal selalu ada buat le sampai kita tua nanti nya.",
-        "Jika semua orang nanti gad yang percaya dan ngerti kondisi le, wa pasti bakal percaya dan berusaha untuk ngertiin perasaan le.",
-        "Thank you dah datang di hidup w ya byy.",
-        "Wa akan selalu setia dan berusaha jadi yang terbaik buat le.",
-        "Ketika le sedih, wa bakal jadi badut buat hibur le.",
-        "Wa bersyukur tiap hari karena le ada di hidup wa.",
-        "Wa sayang bangett ama le byy!! LOVE YOU:))."
-    ];
-
-    function saveName() {
-        const name = document.getElementById('nameInput').value;
-        if (name) {
-            document.getElementById('userName').textContent = name;
-            document.getElementById('nameInputContainer').classList.remove('active');
-            document.getElementById('requestContainer').classList.add('active');
-        }
-    }
-
-    function sendRequest() {
-        const name = document.getElementById('userName').textContent;
-        const request = document.getElementById('requestInput').value;
-
-        if (request) {
-            emailjs.send('service_vwafyl4', 'iloveyouby', {
-                from_name: name,
-                message: request,
-                to_email: 'kevin.theo25@gmail.com'
-            }).then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                showGreeting(name);
-            }, function(error) {
-                console.log('FAILED...', error);
-            });
-        }
-    }
-
-    function showGreeting(name) {
-        document.getElementById('requestContainer').classList.remove('active');
-        document.getElementById('container').classList.add('active');
-        document.getElementById('greeting').textContent = `Hi ${name} cantik`;
-        document.getElementById('message').textContent = messages[currentSlide];
-    }
-
-    function nextSlide() {
-        currentSlide++;
-        if (currentSlide < messages.length) {
-            document.getElementById('message').textContent = messages[currentSlide];
-        } else {
-            currentSlide = 0;
-            document.getElementById('nameInputContainer').classList.add('active');
-            document.getElementById('container').classList.remove('active');
-            document.getElementById('nameInput').value = '';
-        }
-    }
-</script>
 
 </body>
 </html>
