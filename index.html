@@ -61,7 +61,7 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         (function(){
-            emailjs.init('YOUR_USER_ID'); // Ganti 'YOUR_USER_ID' dengan User ID EmailJS Anda
+            emailjs.init('2bEa4ebDWcR-VxHH2D'); // Ganti 'YOUR_USER_ID' dengan User ID EmailJS Anda
         })();
 
         let currentSlide = 0;
@@ -106,7 +106,7 @@
                 emailjs.send('service_xf4hn5d', 'iloveyouby', {
                     from_name: name,
                     message: request,
-                    to_email: 'kevin.theo25@gmail.com'
+                    to_email: 'kevinteoh1313@gmail.com'
                 }).then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
                     showGreeting(name);
@@ -122,7 +122,7 @@
             document.getElementById('requestContainer').classList.remove('active');
             document.getElementById('container').classList.add('active');
             document.getElementById('greeting').textContent = `Hi ${name} cantik`;
-            document.getElementById('message').textContent = messages[currentSlide];
+            document.getElementById('message').textContent = messages[currentSlide];    
         }
     </script>
 </head>
